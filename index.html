@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Registration</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <main class="main">
+      <h1>Sign Up</h1>
+      <form id="main_form" action="" onsubmit="register()">
+        <div class="single_row">
+          <label for="name">Enter the Name :</label>
+          <input required id="name" type="text" />
+        </div>
+        <div class="single_row">
+          <label for="email">Enter the Email :</label>
+          <input required id="email" type="email" />
+        </div>
+        <div class="single_row">
+          <label for="password">Enter the Password :</label>
+          <input min="8" required id="password" type="password" />
+        </div>
+        <div class="single_row">
+          <label for="password_reenter">Confirm password :</label>
+          <input min="8" required id="password_reenter" type="password" />
+        </div>
+        <div class="check">
+          <input
+            style="cursor: pointer"
+            id="check"
+            type="checkbox"
+            name="check"
+            value="check"
+            onclick="makeReg(this.checked)"
+          />
+          <label style="cursor: pointer" for="check"
+            >accept the
+            <a href="#" style="color: blue">Terms and Conditions</a></label
+          >
+        </div>
+        <div>
+          <button id="btn" disabled>Register</button>
+        </div>
+      </form>
+    </main>
+  </body>
+  <script>
+    const validate = (user) => {
+      if (/^[a-zA-Z]+$/.test(user.name)) {
+        if (
+          /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,3})$/.test(
+            user.email
+          )
+        ) {
+          if(user.password === user.confirmPass){
+            alert("Registration Successfull");
+            return true;
+          }else{
+            alert("Password doesn't match")
+          }
+        } else {
+          alert("Enter a valid email Id");
+        }
+      } else {
+        alert("Enter a valid name");
+      }
+      return false;
+    };
+
+    
+
+    const register = () => {
+      event.preventDefault();
+
+      let tandc = document.getElementById("check").checked;
+
+      let user = {
+        name: document.getElementById("name").value,
+        email: document.getElementById("email").value,
+        password: document.getElementById("password").value,
+        confirmPass: document.getElementById("password_reenter").value,
+      };
+
+      if (validate(user)) {
+        window.location.reload();
+      }
+    };
+
+    const makeReg = (e) => {
+      if (e === true) {
+        document.getElementById("btn").disabled = false;
+      } else {
+        document.getElementById("btn").disabled = true;
+      }
+    };
+  </script>
+</html>
